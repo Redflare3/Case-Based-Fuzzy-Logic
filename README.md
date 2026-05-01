@@ -1,5 +1,5 @@
 # Case-Based-Fuzzy-Logic
-#Case
+# Case
 
 Diberikan file restoran.xlsx berupa himpunan data 100 review restoran yang ada di kota Bandung
 dengan dua atribut: Kualitas Servis (1-100; semakin Cnggi semakin baik) dan Harga (bilangan real
