@@ -1,5 +1,3 @@
-
-
 import openpyxl
 import sys
 
