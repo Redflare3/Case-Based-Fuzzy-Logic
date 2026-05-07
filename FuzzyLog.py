@@ -2,7 +2,6 @@ import openpyxl
 import sys
 
 class FuzzyLog:
-
     def __init__(self):
         self.servis_params = {
             'rendah': (1, 1, 35, 50),       # (a, b, c, d) untuk trapezoid
@@ -50,12 +49,10 @@ class FuzzyLog:
         return 0.0
     
     def fuzzification(self, servis, harga):
-        # Fuzzifikasi Kualitas Servis
         servis_fuzzy = {}
         for kategori, params in self.servis_params.items():
             servis_fuzzy[kategori] = self.trapezoid(servis, *params)
-        
-        # Fuzzifikasi Harga
+
         harga_fuzzy = {}
         for kategori, params in self.harga_params.items():
             harga_fuzzy[kategori] = self.trapezoid(harga, *params)
@@ -68,19 +65,16 @@ class FuzzyLog:
             'cukup_layak': 0.0,
             'sangat_layak': 0.0
         }
-
         # Terapkan aturan fuzzy
         for (servis_cat, harga_cat), output_cat in self.rules.items():
             # T-Norm: MIN (firing strength)
             firing_strength = min(servis_fuzzy[servis_cat], harga_fuzzy[harga_cat])
-            
             # S-Norm: MAX (agregasi)
             output_fuzzy[output_cat] = max(output_fuzzy[output_cat], firing_strength)
         
         return output_fuzzy
     
     def defuzz(self, output_fuzzy, servis, harga):
-        # Hitung base score dengan Centroid
         resolution = 0.5
         x_values = []
         y_values = []
@@ -113,7 +107,6 @@ class FuzzyLog:
         harga_normalized = 1.0 - ((harga - 25000) / 30000)  # 1(murah)-0(mahal)
         
         adjustment = (servis_normalized * 2.5) + (harga_normalized * 2.5)
-        
         final_score = base_score + adjustment
         
         # Pastikan dalam rentang 0-100
@@ -204,8 +197,6 @@ class FuzzyLog:
             print(f"{i:<6} {resto['id']:<8} {resto['kualitas_servis']:<18.1f} "
                   f"{resto['harga']:<12,.0f} {resto['skor_kelayakan']:<10.2f}")
         
-
-
 def main():
 
     input_file = "restoran.xlsx"
